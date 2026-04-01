@@ -1,15 +1,25 @@
 import express from "express";
 import dotenv from "dotenv";
-
-dotenv.config();
-
 import connectDB from "./config/connectDB.js";
+dotenv.config();
+import cors from "cors";
+import cookieParser from "cookie-parser";
+import authRouter from "./routes/auth.routes.js";
+import userRouter from "./routes/user.route.js";
+
+
 
 const app = express();
-
-app.get("/", (req, res) => res.json("Hello, World!"));
-
+app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 const PORT = process.env.PORT || 30000;
+
+
+app.use(express.json());
+app.use(cookieParser());
+
+
+app.use("/api/auth", authRouter);
+app.use("/api/user", userRouter);
 
 const start = async () => {
   try {

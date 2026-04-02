@@ -6,6 +6,8 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { setUserData } from './redux/userSlice'
+import InterviewReport from './pages/InterviewReport'
+import InterviewPage from './pages/InterviewPage'
 
 
 export const ServerUrl = "http://localhost:8000";
@@ -27,11 +29,13 @@ function App() {
    }, [dispatch]);
 
   return (
-    <Routes> 
-      <Route path='/' element={<Home />} />
-      <Route path='/auth' element={<Auth />} />
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/auth" element={<Auth />} />
+      <Route path="/interview" element={<InterviewPage />} />
+      <Route path="/report/:id" element={<InterviewReport />} />
     </Routes>
-  )
+  );
 }
 
 export default App

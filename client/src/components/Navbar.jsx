@@ -63,7 +63,7 @@ function Navbar() {
               className="flex items-center gap-2 bg-gray-100 px-4 py-2 rounded-full text-md hover:bg-gray-200 transition"
             >
               <BsCoin size={20} />
-              {userData?.credits || 0}
+              {userData?.credits || 100}
             </button>
 
             {showCreditPopup && (

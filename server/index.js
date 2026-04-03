@@ -12,7 +12,7 @@ import paymentRouter from "./routes/payment.routes.js";
 
 
 const app = express();
-app.use(cors({ origin: "hhttps://mockai-client.onrender.com", credentials: true }));
+app.use(cors({ origin: "https://mockai-client.onrender.com", credentials: true }));
 const PORT = process.env.PORT || 30000;
 
 

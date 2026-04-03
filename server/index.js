@@ -1,20 +1,19 @@
 import dotenv from "dotenv";
 dotenv.config();
+
 import express from "express";
 import connectDB from "./config/connectDB.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
+
 import authRouter from "./routes/auth.routes.js";
 import userRouter from "./routes/user.route.js";
 import interviewRouter from "./routes/interview.routes.js";
 import paymentRouter from "./routes/payment.routes.js";
 
+const app = express(); // ✅ only once
 
-
-const app = express();
-const app = express();
-
-// ✅ CORS config yahin add karna hai
+// ✅ CORS config
 const allowedOrigins = [
   "http://localhost:5173",
   "https://mockai-client.onrender.com"
@@ -30,13 +29,19 @@ app.use(cors({
   },
   credentials: true
 }));
-const PORT = process.env.PORT || 30000;
 
+// ✅ COOP fix (Google popup)
+app.use((req, res, next) => {
+  res.setHeader("Cross-Origin-Opener-Policy", "same-origin-allow-popups");
+  next();
+});
+
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(cookieParser());
 
-
+// routes
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/interview", interviewRouter);
@@ -49,7 +54,7 @@ const start = async () => {
       console.log(`Server is running on port ${PORT}`);
     });
   } catch (err) {
-    console.error("Failed to start server due to DB error");
+    console.error("Failed to start server due to DB error", err);
     process.exit(1);
   }
 };

@@ -12,7 +12,12 @@ import axios from "axios";
 import { ServerUrl } from "../App";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserData } from "../redux/userSlice";
+import { useNavigate } from "react-router-dom";
+import { FaArrowLeft } from "react-icons/fa";
+
+
 function Step1SetUp({ onStart }) {
+   const navigate = useNavigate(); 
   const { userData } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const [role, setRole] = useState("");
@@ -91,6 +96,14 @@ function Step1SetUp({ onStart }) {
           transition={{ duration: 0.7 }}
           className="relative bg-gradient-to-br from-green-50 to-green-100 p-12 flex flex-col justify-center"
         >
+          {/* 🔙 Back Button */}
+          <button
+            onClick={() => navigate("/")}
+            className="absolute top-6 left-6 p-3 rounded-full bg-white shadow hover:shadow-md transition"
+          >
+            <FaArrowLeft className="text-gray-600" />
+          </button>
+
           <h2 className="text-4xl font-bold text-gray-800 mb-6">
             Start Your AI Interview
           </h2>
@@ -129,7 +142,6 @@ function Step1SetUp({ onStart }) {
             ))}
           </div>
         </motion.div>
-
         <motion.div
           initial={{ x: 80, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}

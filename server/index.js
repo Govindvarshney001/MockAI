@@ -12,7 +12,24 @@ import paymentRouter from "./routes/payment.routes.js";
 
 
 const app = express();
-app.use(cors({ origin: "https://mockai-client.onrender.com", credentials: true }));
+const app = express();
+
+// ✅ CORS config yahin add karna hai
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://mockai-client.onrender.com"
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("CORS not allowed"));
+    }
+  },
+  credentials: true
+}));
 const PORT = process.env.PORT || 30000;
 
 
